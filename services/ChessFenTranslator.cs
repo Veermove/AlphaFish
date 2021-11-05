@@ -20,8 +20,14 @@ class ChessFenTranslator {
             );
     }
     private static ChessBoardModel parseToChessBoard(String position) {
-        int[,] chessBoard = new int[8,8];
+        ChessPiece[,] chessBoard = new ChessPiece[8,8];
         char[] positionChar = position.ToCharArray();
+
+        for (int i = 0; i < chessBoard.GetLength(0); i++) {
+            for (int j = 0; j < chessBoard.GetLength(1); j++) {
+                chessBoard[i, j] = new ChessPiece(0);
+            }
+        }
 
         int indexX = 0;
         int indexY = 0;
@@ -32,9 +38,9 @@ class ChessFenTranslator {
             } else if ((int)positionChar[i] >= 48 && (int)positionChar[i] <= 45) {
                 indexX += (int)positionChar[i] - 48;
             } else {
-                chessBoard[indexX, indexY] = ChessPieceDictionary
+                chessBoard[indexX, indexY] = new ChessPiece(ChessPieceDictionary
                     .ChessPiecesCharToIntDict
-                    .GetValueOrDefault(positionChar[i], 0);
+                    .GetValueOrDefault(positionChar[i], 0));
                 indexX++;
             }
         }
@@ -66,8 +72,8 @@ class ChessFenTranslator {
         return castlingInfoArray;
     }
 
-    private static ChessMoveModel parseToEnPassant(String enPassantInfo) {
-        return new ChessMoveModel(enPassantInfo);
+    private static ChessMove parseToEnPassant(String enPassantInfo) {
+        return new ChessMove(enPassantInfo);
     }
 
     public static String stringFromPosition (GameModel gameState) {

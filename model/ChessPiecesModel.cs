@@ -11,4 +11,28 @@ public class ChessPiece
     public const int White = 8;
     public const int Black = 16;
 
+    private int color;
+    private int piece;
+    private int pieceOfColor;
+
+    public ChessPiece(int givenPiece) {
+        if (givenPiece == 0) {
+            color = 0;
+            piece = 0;
+            pieceOfColor = 0;
+        }
+        else if (givenPiece > 16) {
+            this.color = Black;
+            this.piece = givenPiece - Black;
+        } else {
+            this.color = White;
+            this.piece = givenPiece - White;
+        }
+        this.pieceOfColor = givenPiece;
+    }
+
+    public int getPieceAndCol() {
+        return pieceOfColor;
+    }
+
 }
