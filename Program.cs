@@ -7,9 +7,11 @@ namespace AlphaFish
         static void Main(string[] args)
         {
             ChessPieceDictionary.fillDictionary();
-            GameModel game = ChessFenTranslator.positionFromString("rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1");
-            game.displayGameInfo();
-            // game.startGame();
+            // ChessPiece test = new Rook(12, 1, 1);
+            // Console.WriteLine(test.hasAccessToSquare((1 ,0)));
+            GameModel game = ChessFenTranslator.positionFromString("k7/8/1q6/1B2rNN1/1B5b/1B6/1Q6/K2R3R w - - 0 1");
+            // game.displayGameInfo();
+            game.startGame();
 
         }
     }

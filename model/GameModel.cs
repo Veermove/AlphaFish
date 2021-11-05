@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 
 class GameModel {
 
@@ -40,15 +41,20 @@ class GameModel {
             displayGameInfo();
             String moveInput = Console.ReadLine();
             ChessMove move = new ChessMove(moveInput);
-            Console.WriteLine(move.isMoveOfCorrectForm());
-            if (!move.isMoveLegal(this) || !move.isMoveOfCorrectForm()) {
-                continue;
-            }
+            move.isMoveLegal(this);
+            // Console.WriteLine(move.isMoveOfCorrectForm());
+            // if (!move.isMoveLegal(this) || !move.isMoveOfCorrectForm()) {
+            //     continue;
+            // }
             // ChessBoard.makeMove(move);
             // String fen = ChessFenTranslator.stringFromPosition(this);
             // updateGameState();
             break;
         }
+    }
+
+    public ChessBoardModel getChessBoard() {
+        return ChessBoard;
     }
 
 

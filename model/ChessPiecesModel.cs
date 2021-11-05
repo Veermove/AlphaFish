@@ -1,4 +1,5 @@
-public class ChessPiece
+using System;
+public abstract class ChessPiece
 {
     public const int None = 0;
     public const int King = 1;
@@ -29,6 +30,14 @@ public class ChessPiece
             this.piece = givenPiece - White;
         }
         this.pieceOfColor = givenPiece;
+    }
+
+    // ---->> (posHor, posVer) <<----
+    public abstract Boolean hasAccessToSquare((int,int) target);
+    public abstract char getSignatureChar();
+
+    public int getColor() {
+        return color;
     }
 
     public int getPieceAndCol() {

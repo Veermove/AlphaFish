@@ -1,10 +1,21 @@
 using System;
+using System.Collections.Generic;
 
 class ChessBoardModel {
     private ChessPiece[,] chessBoard;
+    private List<ChessPiece> onBoard;
 
-    public ChessBoardModel(ChessPiece[,] ChessBoard) {
+    public ChessBoardModel(ChessPiece[,] ChessBoard, List<ChessPiece> onBoard) {
         this.chessBoard = ChessBoard;
+        this.onBoard = onBoard;
+    }
+
+    public ChessPiece getSquare(int x, int y) {
+        return chessBoard[x, y];
+    }
+
+    public List<ChessPiece> FindAllPieces(Predicate<ChessPiece> match) {
+        return onBoard.FindAll(match);
     }
 
     public void ShowBoard() {

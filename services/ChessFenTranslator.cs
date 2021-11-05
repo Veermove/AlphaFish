@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 
 class ChessFenTranslator {
 
@@ -22,10 +23,11 @@ class ChessFenTranslator {
     private static ChessBoardModel parseToChessBoard(String position) {
         ChessPiece[,] chessBoard = new ChessPiece[8,8];
         char[] positionChar = position.ToCharArray();
+        List<ChessPiece> onBoard = new List<ChessPiece>();
 
         for (int i = 0; i < chessBoard.GetLength(0); i++) {
             for (int j = 0; j < chessBoard.GetLength(1); j++) {
-                chessBoard[i, j] = new ChessPiece(0);
+                chessBoard[i, j] = new Empty(0);
             }
         }
 
@@ -35,17 +37,58 @@ class ChessFenTranslator {
             if (positionChar[i] == '/') {
                 indexX = 0;
                 indexY++;
-            } else if ((int)positionChar[i] >= 48 && (int)positionChar[i] <= 45) {
+            } else if ((int)positionChar[i] >= 48 && (int)positionChar[i] <= 56) {
                 indexX += (int)positionChar[i] - 48;
             } else {
-                chessBoard[indexX, indexY] = new ChessPiece(ChessPieceDictionary
-                    .ChessPiecesCharToIntDict
-                    .GetValueOrDefault(positionChar[i], 0));
+                int piece = ChessPieceDictionary.ChessPiecesCharToIntDict
+                    .GetValueOrDefault(positionChar[i], 0);
+                switch (piece) {
+                    case 17:
+                    case 9:
+                        chessBoard[indexX, indexY] = new King(piece, indexX, indexY);
+                        onBoard.Add( chessBoard[indexX, indexY]);
+                        break;
+
+                    case 18:
+                    case 10:
+                        chessBoard[indexX, indexY] = new Queen(piece, indexX, indexY);
+                        onBoard.Add( chessBoard[indexX, indexY]);
+                        break;
+
+                    case 19:
+                    case 11:
+                        chessBoard[indexX, indexY] = new Rook(piece, indexX, indexY);
+                        onBoard.Add( chessBoard[indexX, indexY]);
+                        break;
+
+                    case 20:
+                    case 12:
+                        chessBoard[indexX, indexY] = new Bishop(piece, indexX, indexY);
+                        onBoard.Add( chessBoard[indexX, indexY]);
+                        break;
+
+                    case 21:
+                    case 13:
+                        chessBoard[indexX, indexY] = new Knight(piece, indexX, indexY);
+                        onBoard.Add( chessBoard[indexX, indexY]);
+                        break;
+
+                    case 22:
+                    case 14:
+                        chessBoard[indexX, indexY] = new Pawn(piece, indexX, indexY);
+                        onBoard.Add( chessBoard[indexX, indexY]);
+                        break;
+
+                    case 0:
+                    default:
+                        chessBoard[indexX, indexY] = new Empty(piece);
+                        break;
+                }
                 indexX++;
             }
         }
 
-        return new ChessBoardModel(chessBoard);
+        return new ChessBoardModel(chessBoard, onBoard);
     }
 
     private static Boolean[] parseCastling(String castilingInfo) {
