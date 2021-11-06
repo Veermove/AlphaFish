@@ -1,9 +1,11 @@
 using System;
 using System.Collections.Generic;
 
-class ChessBoardModel {
+public class ChessBoardModel {
     private ChessPiece[,] chessBoard;
     private List<ChessPiece> onBoard;
+
+    private ChessPiece empty = new Empty(0);
 
     public ChessBoardModel(ChessPiece[,] ChessBoard, List<ChessPiece> onBoard) {
         this.chessBoard = ChessBoard;
@@ -12,6 +14,21 @@ class ChessBoardModel {
 
     public ChessPiece getSquare(int x, int y) {
         return chessBoard[x, y];
+    }
+
+    public ChessPiece getSquare((int, int) target) {
+        return getSquare(target.Item1, target.Item2);
+    }
+
+    public Boolean isSquareOccupied(int x, int y) {
+        if (x < 0 || x > 7 || y < 0 || y > 7) {
+            return true;
+        }
+        return !(chessBoard[x, y] is Empty);
+    }
+
+    public Boolean isSquareOccupied((int, int) target) {
+        return isSquareOccupied(target.Item1, target.Item2);
     }
 
     public List<ChessPiece> FindAllPieces(Predicate<ChessPiece> match) {

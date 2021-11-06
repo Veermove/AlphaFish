@@ -2,7 +2,7 @@ using System;
 public class Empty : ChessPiece {
     public Empty(int givenPiece) : base(givenPiece) {}
 
-    public override Boolean hasAccessToSquare((int, int) targetSquare) {
+    public override Boolean hasAccessToSquare((int, int) targetSquare, ChessBoardModel chessBoard) {
         return false;
     }
     public override bool isOnRankOrFile(char rankOrFile)

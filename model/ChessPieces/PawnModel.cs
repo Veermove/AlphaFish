@@ -11,7 +11,7 @@ public class Pawn : ChessPiece {
         this.posVer = posVer;
     }
 
-    public override Boolean hasAccessToSquare((int, int) targetSquare) {
+    public override Boolean hasAccessToSquare((int, int) targetSquare, ChessBoardModel chessBoard) {
         if(!hasMoved) {
             return hasAccessToSquareViaSpecialMove(targetSquare);
         }

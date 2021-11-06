@@ -27,10 +27,18 @@ class ChessMove {
             return x.getColor() == color && x.getSignatureChar() == signature;
         });
 
-        possible = possible.FindAll(x => x.hasAccessToSquare(targetSquare));
+        possible = possible.FindAll(x => x.hasAccessToSquare(targetSquare, game.getChessBoard()));
+
+        Console.WriteLine(possible.Count);
 
         if (possible.Count > 1) {
             possible = possible.FindAll(x => x.isOnRankOrFile(moveChar[1]));
+        }
+
+        if (isCapture && game.getChessBoard().isSquareOccupied(targetSquare)) {
+            if (game.getChessBoard().getSquare(targetSquare).getColor() != color) {
+                // move is capture
+            }
         }
 
 

@@ -10,21 +10,24 @@ public class Queen : ChessPiece {
 
     private (int, int)[] offsets = {(-1, 1), (1, 1), (-1, -1), (1, -1), (-1, 0), (1, 0), (0, -1), (0, 1)};
 
-    public override Boolean hasAccessToSquare((int, int) targetSquare) {
-        (int, int)[] branches = new (int, int)[8];
+    public override Boolean hasAccessToSquare((int,int) targetSquare, ChessBoardModel chessBoard) {
+        (int, int, Boolean)[] branches = new (int, int, Boolean)[8];
         for (int i = 0; i < 8; i++) {
-            branches[i] = (posVer, posHor);
+            branches[i] = (posVer + offsets[i].Item1, posHor + offsets[i].Item2, true);
         }
+        (int, int, Boolean) target = (targetSquare.Item1, targetSquare.Item2, true);
 
         for (int j = 0; j < 8; j++) {
-
             for (int i = 0; i < 8; i++) {
-                if (targetSquare == branches[i]) {
+                if (target == branches[i]) {
                     return true;
                 }
-            }
-            for (int i = 0; i < 8; i++ ) {
-                branches[i] = (branches[i].Item1 + offsets[i].Item1, branches[i].Item2 + offsets[i].Item2);
+                if (branches[i].Item3) {
+                    branches[i] = (branches[i].Item1 + offsets[i].Item1, branches[i].Item2 + offsets[i].Item2, branches[i].Item3);
+                    if (chessBoard.isSquareOccupied(branches[i].Item1, branches[i].Item2)) {
+                        branches[i].Item3 = false;
+                    }
+                }
             }
         }
         return false;

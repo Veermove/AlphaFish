@@ -10,18 +10,22 @@ public class Rook : ChessPiece {
 
     private (int, int)[] offsets = {(-1, 0), (1, 0), (0, -1), (0, 1)};
 
-    public override Boolean hasAccessToSquare((int, int) targetSquare) {
-        (int, int)[] branches = new (int, int)[4];
+    public override Boolean hasAccessToSquare((int, int) targetSquare, ChessBoardModel chessBoard) {
+        (int, int, Boolean)[] branches = new (int, int, Boolean)[4];
         for (int i = 0; i < branches.GetLength(0); i++) {
-            branches[i] = (posHor, posVer);
+            branches[i] = (posHor + offsets[i].Item1, posVer + offsets[i].Item2, true);
         }
-        for (int j = 0; j < 8; j++) {
-            if (targetSquare == branches[0] || targetSquare == branches[1] ||
-                targetSquare == branches[2] || targetSquare == branches[3]) {
-                return true;
-            } else {
-                for (int i = 0; i < 4; i++ ) {
-                    branches[i] = (branches[i].Item1 + offsets[i].Item1, branches[i].Item2 + offsets[i].Item2);
+        (int, int, Boolean) target = (targetSquare.Item1, targetSquare.Item2, true);
+        for (int j = 0; j < 7; j++) {
+            for (int i = 0; i < branches.GetLength(0); i++ ) {
+                if (target == branches[i]) {
+                    return true;
+                }
+                if (branches[i].Item3) {
+                    branches[i] = (branches[i].Item1 + offsets[i].Item1, branches[i].Item2 + offsets[i].Item2, branches[i].Item3);
+                    if (chessBoard.isSquareOccupied(branches[i].Item1, branches[i].Item2)) {
+                        branches[i].Item3 = false;
+                    }
                 }
             }
         }

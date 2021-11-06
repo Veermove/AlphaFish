@@ -81,7 +81,7 @@ class ChessFenTranslator {
 
                     case 0:
                     default:
-                        chessBoard[indexX, indexY] = new Empty(piece);
+                        chessBoard[indexX, indexY] = ChessPieceDictionary.empty;
                         break;
                 }
                 indexX++;

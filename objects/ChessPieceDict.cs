@@ -1,5 +1,7 @@
 using System.Collections.Generic;
 class ChessPieceDictionary {
+
+    public static ChessPiece empty = new Empty(0);
     public static Dictionary<char, int> ChessPiecesCharToIntDict;
     public static Dictionary<int, char> ChessPieceIntToCharDict;
 

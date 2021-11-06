@@ -8,7 +8,7 @@ public class Knight : ChessPiece {
         this.posVer = posVer;
     }
 
-    public override Boolean hasAccessToSquare((int, int) targetSquare) {
+    public override Boolean hasAccessToSquare((int, int) targetSquare, ChessBoardModel chessBoard) {
         return (posVer - 1, posHor + 2) == targetSquare ||
         (posVer + 1, posHor + 2) == targetSquare ||
         (posVer - 1, posHor - 2) == targetSquare ||
