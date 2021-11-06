@@ -32,11 +32,9 @@ public class Rook : ChessPiece {
     {
         if (Char.IsDigit(rankOrFile)) {
             int givenP = BoardSquareTranslator.digitToInt(rankOrFile);
-            // int givenP = (int)rankOrFile - 50 + 8;
             return givenP == posVer;
         } else {
             int givenP = BoardSquareTranslator.letterToInt(rankOrFile);
-            // int givenP = (int)rankOrFile - 97;
             return givenP == posHor;
         }
     }
