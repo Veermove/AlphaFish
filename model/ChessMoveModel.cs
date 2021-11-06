@@ -19,12 +19,21 @@ class ChessMove {
     }
 
     public Boolean isMoveLegal(GameModel game) {
+        // check which color plays
         color = game.getColor() ? ChessPiece.White : ChessPiece.Black;
-        prepareMove();
+
+        Char[] moveChar = prepareMove();
         List<ChessPiece> possible = game.getChessBoard().FindAllPieces(x => {
             return x.getColor() == color && x.getSignatureChar() == signature;
         });
+
         possible = possible.FindAll(x => x.hasAccessToSquare(targetSquare));
+
+        if (possible.Count > 1) {
+            possible = possible.FindAll(x => x.isOnRankOrFile(moveChar[1]));
+        }
+
+
 
         foreach (ChessPiece item in possible)
         {
@@ -35,7 +44,7 @@ class ChessMove {
         return false;
     }
 
-    public void prepareMove() {
+    public Char[] prepareMove() {
         isCapture = move.Contains('x');
         Char[] moveChar = move.ToCharArray();
         if (moveChar.GetLength(0) == 2) {
@@ -49,8 +58,8 @@ class ChessMove {
                 signature = moveChar[0];
             }
         }
-        targetSquare.Item2 = (int)moveChar[moveChar.GetLength(0) - 2] - 98;
-        targetSquare.Item1 = (int)moveChar[moveChar.GetLength(0) - 1] - 50 + 8;
+        targetSquare = BoardSquareTranslator.ToPair(moveChar[moveChar.GetLength(0) - 2], moveChar[moveChar.GetLength(0) - 1]);
+        return moveChar;
     }
 
     public Boolean isMoveOfCorrectForm() {

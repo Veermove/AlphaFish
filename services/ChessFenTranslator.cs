@@ -45,37 +45,37 @@ class ChessFenTranslator {
                 switch (piece) {
                     case 17:
                     case 9:
-                        chessBoard[indexX, indexY] = new King(piece, indexX, indexY);
+                        chessBoard[indexX, indexY] = new King(piece, indexX, 7 - indexY);
                         onBoard.Add( chessBoard[indexX, indexY]);
                         break;
 
                     case 18:
                     case 10:
-                        chessBoard[indexX, indexY] = new Queen(piece, indexX, indexY);
+                        chessBoard[indexX, indexY] = new Queen(piece, indexX, 7 - indexY);
                         onBoard.Add( chessBoard[indexX, indexY]);
                         break;
 
                     case 19:
                     case 11:
-                        chessBoard[indexX, indexY] = new Rook(piece, indexX, indexY);
+                        chessBoard[indexX, indexY] = new Rook(piece, indexX, 7 - indexY);
                         onBoard.Add( chessBoard[indexX, indexY]);
                         break;
 
                     case 20:
                     case 12:
-                        chessBoard[indexX, indexY] = new Bishop(piece, indexX, indexY);
+                        chessBoard[indexX, indexY] = new Bishop(piece, indexX, 7 - indexY);
                         onBoard.Add( chessBoard[indexX, indexY]);
                         break;
 
                     case 21:
                     case 13:
-                        chessBoard[indexX, indexY] = new Knight(piece, indexX, indexY);
+                        chessBoard[indexX, indexY] = new Knight(piece, indexX, 7 - indexY);
                         onBoard.Add( chessBoard[indexX, indexY]);
                         break;
 
                     case 22:
                     case 14:
-                        chessBoard[indexX, indexY] = new Pawn(piece, indexX, indexY);
+                        chessBoard[indexX, indexY] = new Pawn(piece, indexX, 7 - indexY);
                         onBoard.Add( chessBoard[indexX, indexY]);
                         break;
 

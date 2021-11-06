@@ -12,10 +12,9 @@ public class Rook : ChessPiece {
 
     public override Boolean hasAccessToSquare((int, int) targetSquare) {
         (int, int)[] branches = new (int, int)[4];
-        branches[0] = (posVer, posHor);
-        branches[1] = (posVer, posHor);
-        branches[2] = (posVer, posHor);
-        branches[3] = (posVer, posHor);
+        for (int i = 0; i < branches.GetLength(0); i++) {
+            branches[i] = (posHor, posVer);
+        }
         for (int j = 0; j < 8; j++) {
             if (targetSquare == branches[0] || targetSquare == branches[1] ||
                 targetSquare == branches[2] || targetSquare == branches[3]) {
@@ -27,6 +26,19 @@ public class Rook : ChessPiece {
             }
         }
         return false;
+    }
+
+    public override bool isOnRankOrFile(char rankOrFile)
+    {
+        if (Char.IsDigit(rankOrFile)) {
+            int givenP = BoardSquareTranslator.digitToInt(rankOrFile);
+            // int givenP = (int)rankOrFile - 50 + 8;
+            return givenP == posVer;
+        } else {
+            int givenP = BoardSquareTranslator.letterToInt(rankOrFile);
+            // int givenP = (int)rankOrFile - 97;
+            return givenP == posHor;
+        }
     }
 
     public override char getSignatureChar() {

@@ -19,8 +19,13 @@ public class Pawn : ChessPiece {
     }
 
     private Boolean hasAccessToSquareViaSpecialMove((int, int) targetSquare) {
-        Console.WriteLine("special move!");
+        // Console.WriteLine("special move!");
         return targetSquare == (posVer + 2, posHor);
+    }
+
+    public override bool isOnRankOrFile(char rankOrFile)
+    {
+        throw new NotImplementedException();
     }
 
     public override char getSignatureChar() {

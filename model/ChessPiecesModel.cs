@@ -34,6 +34,7 @@ public abstract class ChessPiece
 
     // ---->> (posHor, posVer) <<----
     public abstract Boolean hasAccessToSquare((int,int) target);
+    public abstract Boolean isOnRankOrFile(Char rankOrFile);
     public abstract char getSignatureChar();
 
     public int getColor() {
