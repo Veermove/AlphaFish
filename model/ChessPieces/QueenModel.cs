@@ -17,8 +17,8 @@ public class Queen : ChessPiece {
         }
         (int, int, Boolean) target = (targetSquare.Item1, targetSquare.Item2, true);
 
-        for (int j = 0; j < 8; j++) {
-            for (int i = 0; i < 8; i++) {
+        for (int j = 0; j < 7; j++) {
+            for (int i = 0; i < 7; i++) {
                 if (target == branches[i]) {
                     return true;
                 }
@@ -26,6 +26,32 @@ public class Queen : ChessPiece {
                     branches[i] = (branches[i].Item1 + offsets[i].Item1, branches[i].Item2 + offsets[i].Item2, branches[i].Item3);
                     if (chessBoard.isSquareOccupied(branches[i].Item1, branches[i].Item2)) {
                         branches[i].Item3 = false;
+                    }
+                }
+            }
+        }
+        return false;
+    }
+
+    public override Boolean canAttackSquareWithKing((int, int) targetSquare, ChessBoardModel chessBoard) {
+        for (int i = 0; i < offsets.GetLength(0); i++) {
+            int tempC = posHor;
+            int tempR = posVer;
+            while (true){
+                tempC += offsets[i].Item1;
+                tempR += offsets[i].Item2;
+                if (tempC < 0 || tempR < 0 || tempC > 7 || tempR > 7) {
+                    break;
+                }
+
+                // Console.WriteLine(BoardSquareTranslator.toSquare(tempC, tempR) + " == " + targetSquare + ", is occ: " + chessBoard.isSquareOccupied(tempC, tempR));
+                // Console.WriteLine(tempC + " " + tempR);
+
+                if (chessBoard.isSquareOccupied(tempC, tempR)) {
+                    if (targetSquare != (tempC, tempR)) {
+                        break;
+                    } else {
+                        return true;
                     }
                 }
             }
@@ -42,6 +68,15 @@ public class Queen : ChessPiece {
             int givenP = BoardSquareTranslator.letterToInt(rankOrFile);
             return givenP == posHor;
         }
+    }
+
+    public override (int, int) getPosition() {
+        return (posHor, posVer);
+    }
+
+    public override void setPosition(int x, int y) {
+        posHor = x;
+        posVer = y;
     }
 
     public override char getSignatureChar() {

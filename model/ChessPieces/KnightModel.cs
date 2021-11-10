@@ -8,15 +8,29 @@ public class Knight : ChessPiece {
         this.posVer = posVer;
     }
 
+    (int, int)[] offests = {(1, 2), (-1, 2), (-1, -2), (1, -2), (2, 1), (2, -1), (-2, 1), (-2, -1)};
+
     public override Boolean hasAccessToSquare((int, int) targetSquare, ChessBoardModel chessBoard) {
-        return (posVer - 1, posHor + 2) == targetSquare ||
-        (posVer + 1, posHor + 2) == targetSquare ||
-        (posVer - 1, posHor - 2) == targetSquare ||
-        (posVer + 1, posHor - 2) == targetSquare ||
-        (posVer + 2, posHor + 1) == targetSquare ||
-        (posVer + 2, posHor - 1) == targetSquare ||
-        (posVer - 2, posHor + 1) == targetSquare ||
-        (posVer - 2, posHor - 1) == targetSquare;
+        for (int i = 0; i < offests.GetLength(0); i++) {
+            if ((posHor + offests[i].Item1, posVer + offests[i].Item2) == targetSquare) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public override bool canAttackSquareWithKing((int, int) target, ChessBoardModel chessBoard)
+    {
+        return hasAccessToSquare(target, chessBoard);
+    }
+
+    public override (int, int) getPosition() {
+        return (posHor, posVer);
+    }
+
+    public override void setPosition(int x, int y) {
+        posHor = x;
+        posVer = y;
     }
 
     public override bool isOnRankOrFile(char rankOrFile)

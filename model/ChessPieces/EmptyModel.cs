@@ -10,6 +10,19 @@ public class Empty : ChessPiece {
         return false;
     }
 
+    public override bool canAttackSquareWithKing((int, int) target, ChessBoardModel chessBoard)
+    {
+        throw new NotImplementedException();
+    }
+
+    public override (int, int) getPosition() {
+        return (-1, -1);
+    }
+
+    public override void setPosition(int x, int y) {
+        return;
+    }
+
     public override char getSignatureChar() {
         return '`';
     }

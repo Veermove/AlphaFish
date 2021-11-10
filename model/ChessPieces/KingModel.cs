@@ -20,6 +20,20 @@ public class King : ChessPiece {
         ;
     }
 
+    public override bool canAttackSquareWithKing((int, int) target, ChessBoardModel chessBoard)
+    {
+        return false;
+    }
+
+    public override (int, int) getPosition() {
+        return (posHor, posVer);
+    }
+
+    public override void setPosition(int x, int y) {
+        posHor = x;
+        posVer = y;
+    }
+
     public override bool isOnRankOrFile(char rankOrFile)
     {
         if (Char.IsDigit(rankOrFile)) {

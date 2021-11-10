@@ -29,4 +29,8 @@ class BoardSquareTranslator {
         Char b = (Char)(y + 49);
         return String.Format("{0}{1}", a, b);
     }
+
+    public static String toSquare((int, int) a) {
+        return toSquare(a.Item1, a.Item2);
+    }
 }
