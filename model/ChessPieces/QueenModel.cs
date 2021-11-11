@@ -10,27 +10,31 @@ public class Queen : ChessPiece {
 
     private (int, int)[] offsets = {(-1, 1), (1, 1), (-1, -1), (1, -1), (-1, 0), (1, 0), (0, -1), (0, 1)};
 
-    public override Boolean hasAccessToSquare((int,int) targetSquare, ChessBoardModel chessBoard) {
-        (int, int, Boolean)[] branches = new (int, int, Boolean)[8];
-        for (int i = 0; i < 8; i++) {
-            branches[i] = (posVer + offsets[i].Item1, posHor + offsets[i].Item2, true);
-        }
-        (int, int, Boolean) target = (targetSquare.Item1, targetSquare.Item2, true);
-
-        for (int j = 0; j < 7; j++) {
-            for (int i = 0; i < 7; i++) {
-                if (target == branches[i]) {
-                    return true;
+    public override (Boolean, Boolean) hasAccessToSquare((int, int) targetSquare, ChessBoardModel chessBoard) {
+        for (int i = 0; i < offsets.GetLength(0); i++) {
+            int tempC = posHor;
+            int tempR = posVer;
+            while (true){
+                tempC += offsets[i].Item1;
+                tempR += offsets[i].Item2;
+                if (tempC < 0 || tempR < 0 || tempC > 7 || tempR > 7) {
+                    break;
                 }
-                if (branches[i].Item3) {
-                    branches[i] = (branches[i].Item1 + offsets[i].Item1, branches[i].Item2 + offsets[i].Item2, branches[i].Item3);
-                    if (chessBoard.isSquareOccupied(branches[i].Item1, branches[i].Item2)) {
-                        branches[i].Item3 = false;
+
+                if (targetSquare == (tempC, tempR) && chessBoard.isSquareOccupied(tempC, tempR) ) {
+                    if (chessBoard.getSquare(targetSquare).getColor() != this.getColor()) {
+                        return (true, true);
+                    } else {
+                        return (false, false);
                     }
+                } else if (targetSquare == (tempC, tempR)) {
+                    return (true, false);
+                } else if (chessBoard.isSquareOccupied(tempC, tempR)) {
+                    break;
                 }
             }
         }
-        return false;
+        return (false, false);
     }
 
     public override Boolean canAttackSquareWithKing((int, int) targetSquare, ChessBoardModel chessBoard) {

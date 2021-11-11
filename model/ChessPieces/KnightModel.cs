@@ -10,18 +10,27 @@ public class Knight : ChessPiece {
 
     (int, int)[] offests = {(1, 2), (-1, 2), (-1, -2), (1, -2), (2, 1), (2, -1), (-2, 1), (-2, -1)};
 
-    public override Boolean hasAccessToSquare((int, int) targetSquare, ChessBoardModel chessBoard) {
+    public override (Boolean, Boolean) hasAccessToSquare((int, int) targetSquare, ChessBoardModel chessBoard) {
         for (int i = 0; i < offests.GetLength(0); i++) {
             if ((posHor + offests[i].Item1, posVer + offests[i].Item2) == targetSquare) {
-                return true;
+                if (chessBoard.isSquareOccupied(targetSquare)) {
+                    if (chessBoard.getSquare(targetSquare).getColor() != this.getColor()) {
+                        return (true, true);
+                    } else {
+                        return (false, false);
+                    }
+                } else {
+                    return (true, false);
+                }
+
             }
         }
-        return false;
+        return (false, false);
     }
 
     public override bool canAttackSquareWithKing((int, int) target, ChessBoardModel chessBoard)
     {
-        return hasAccessToSquare(target, chessBoard);
+        return hasAccessToSquare(target, chessBoard).Item1;
     }
 
     public override (int, int) getPosition() {

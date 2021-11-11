@@ -9,7 +9,7 @@ public class Bishop : ChessPiece {
 
     private (int, int)[] offsets = {(-1, 1), (1, 1), (-1, -1), (1, -1)};
 
-    public override Boolean hasAccessToSquare((int, int) targetSquare, ChessBoardModel chessBoard) {
+    public override (Boolean, Boolean) hasAccessToSquare((int, int) targetSquare, ChessBoardModel chessBoard) {
         for (int i = 0; i < offsets.GetLength(0); i++) {
             int tempC = posHor;
             int tempR = posVer;
@@ -25,16 +25,20 @@ public class Bishop : ChessPiece {
                     if (targetSquare != (tempC, tempR)) {
                         break;
                     } else {
-                        return true;
+                        if (chessBoard.getSquare(targetSquare).getColor() != this.getColor()) {
+                            return (true, true);
+                        } else {
+                            return (false, false);
+                        }
                     }
                 } else {
                     if (targetSquare == (tempC, tempR)) {
-                        return true;
+                        return (true, false);
                     }
                 }
             }
         }
-        return false;
+        return (false, false);
     }
 
     public override Boolean canAttackSquareWithKing((int, int) targetSquare, ChessBoardModel chessBoard) {

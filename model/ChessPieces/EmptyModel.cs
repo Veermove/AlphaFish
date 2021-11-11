@@ -2,8 +2,8 @@ using System;
 public class Empty : ChessPiece {
     public Empty(int givenPiece) : base(givenPiece) {}
 
-    public override Boolean hasAccessToSquare((int, int) targetSquare, ChessBoardModel chessBoard) {
-        return false;
+    public override (Boolean, Boolean) hasAccessToSquare((int, int) targetSquare, ChessBoardModel chessBoard) {
+        return (false, false);
     }
     public override bool isOnRankOrFile(char rankOrFile)
     {

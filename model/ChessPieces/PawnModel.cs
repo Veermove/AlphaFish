@@ -11,13 +11,22 @@ public class Pawn : ChessPiece {
         this.posVer = posVer;
     }
 
-    public override Boolean hasAccessToSquare((int, int) targetSquare, ChessBoardModel chessBoard) {
+    public override (Boolean, Boolean) hasAccessToSquare((int, int) targetSquare, ChessBoardModel chessBoard) {
         if(!hasMoved) {
-            return hasAccessToSquareViaSpecialMove(targetSquare);
+            //WTROKANMGJDK
+            // CANT MOVE TO SPACES UP IF THERE IS A PIECE THERE
+            return (hasAccessToSquareViaSpecialMove(targetSquare), false);
         }
-        return targetSquare == (posVer + 1, posHor)
-            || targetSquare == (posVer + 1, posHor + 1)
-            || targetSquare == (posVer + 1, posHor - 1);
+        if ( targetSquare == (posVer + 1, posHor)) {
+            return (true, false);
+        } else if ( targetSquare == (posVer + 1, posHor + 1) || targetSquare == (posVer + 1, posHor - 1)) {
+            if (chessBoard.getSquare(targetSquare).getColor() != this.getColor()) {
+                return (true, true);
+            } else {
+                return (false, false);
+            }
+        }
+        return (false, false);
     }
 
     public override bool canAttackSquareWithKing((int, int) target, ChessBoardModel chessBoard)

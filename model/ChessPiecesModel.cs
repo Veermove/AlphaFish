@@ -32,8 +32,9 @@ public abstract class ChessPiece
         this.pieceOfColor = givenPiece;
     }
 
-    // ---->> (posHor, posVer) <<----
-    public abstract Boolean hasAccessToSquare((int,int) target, ChessBoardModel chessBoard);
+    // -------------------------------------------->> (posHor, posVer) <<----
+    // ---->> (retVal, isCapture) <<----
+    public abstract (Boolean, Boolean) hasAccessToSquare((int,int) target, ChessBoardModel chessBoard);
 
     public abstract Boolean canAttackSquareWithKing((int,int) target, ChessBoardModel chessBoard);
     public abstract Boolean isOnRankOrFile(Char rankOrFile);

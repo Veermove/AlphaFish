@@ -8,16 +8,26 @@ public class King : ChessPiece {
         this.posVer = posVer;
     }
 
-    public override Boolean hasAccessToSquare((int, int) targetSquare, ChessBoardModel chessBoard) {
-        return (posVer + 1, posHor + 1) == targetSquare ||
-        (posVer + 1, posHor) == targetSquare ||
-        (posVer + 1, posHor - 1) == targetSquare ||
-        (posVer, posHor + 1) == targetSquare ||
-        (posVer, posHor - 1) == targetSquare ||
-        (posVer -1, posHor + 1) == targetSquare ||
-        (posVer -1, posHor) == targetSquare ||
-        (posVer -1, posHor -1) == targetSquare;
-        ;
+     (int, int)[] offests = {(1, 1), (1, 0), (1, -1), (0, 1), (0, -1), (-1, 1), (-1, 0), (-1, -1)};
+
+    public override (Boolean, Boolean) hasAccessToSquare((int, int) targetSquare, ChessBoardModel chessBoard) {
+        for (int i = 0; i < offests.GetLength(0); i++) {
+
+            int tempC = posHor + offests[i].Item1;
+            int tempR = posVer + offests[i].Item2;
+            if (targetSquare == (tempC, tempR)) {
+                if (chessBoard.isSquareOccupied(targetSquare)) {
+                    if (chessBoard.getSquare(targetSquare).getColor() != this.getColor()) {
+                        return (true, true);
+                    } else {
+                        return (false, false);
+                    }
+                } else {
+                    return (true, false);
+                }
+            }
+        }
+        return (false, false);
     }
 
     public override bool canAttackSquareWithKing((int, int) target, ChessBoardModel chessBoard)

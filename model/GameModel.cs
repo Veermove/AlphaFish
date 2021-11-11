@@ -6,10 +6,10 @@ class GameModel {
     private String positionFEN;
     private ChessBoardModel ChessBoard;
     private Boolean whiteToMove;
-    private Boolean WhiteCastleKingside;
-    private Boolean WhiteCastleQueenside;
-    private Boolean BlackCastleKingside;
-    private Boolean BlackCastleQueenside;
+    public Boolean WhiteCastleKingside {get; set;}
+    public Boolean WhiteCastleQueenside {get; set;}
+    public Boolean BlackCastleKingside {get; set;}
+    public Boolean BlackCastleQueenside {get; set;}
     private ChessMove enPassant;
     private int HalfmoveClock;
     private int FullmoveClock;
